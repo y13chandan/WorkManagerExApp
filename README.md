@@ -1,5 +1,5 @@
 #WorkManager
-<h5>Implemented the WorkManager of Android Jetpack</h5>
+<h5>Implemented the WorkManager of Android Jetpack to send a simple notfication</h5>
 <h5>WorkManager helps us to execute our tasks immediately or an appropriate time.</h5>
 <h5>Earlier we had AlarmManager, JobScheduler, FirebaseJobDispatcher for scheduling the background tasks. But the issues were</h5>
 <h6>JobScheduler – Available only for API >= 21 </h6>
