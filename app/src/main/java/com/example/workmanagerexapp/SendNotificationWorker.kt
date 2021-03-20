@@ -21,7 +21,14 @@ class SendNotificationWorker(context: Context, workParams: WorkerParameters) : W
      */
     override fun doWork(): Result {
         displayNotification("WorkManager", "Finished with work")
+        return Result.success()
     }
+
+
+
+    /*
+    * generating a simple notification
+    */
 
     private fun displayNotification(title: String, task: String) {
         val notificationManager =

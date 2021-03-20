@@ -2,6 +2,8 @@ package com.example.workmanagerexapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -9,8 +11,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnStartEnqueueWork.setOnClickListener {
+        //subclass of our WorkRequest
+        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<SendNotificationWorker>().build()
 
+
+        btnStartEnqueueWork.setOnClickListener {
+            //Enqueuing the work request
+            WorkManager.getInstance(this).enqueue(oneTimeWorkRequest)
         }
     }
 }
