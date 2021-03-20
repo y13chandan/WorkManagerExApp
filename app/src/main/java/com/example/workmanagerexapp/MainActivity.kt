@@ -23,7 +23,11 @@ class MainActivity : AppCompatActivity() {
             WorkManager.getInstance(this).enqueue(oneTimeWorkRequest)
         }
 
+        printWorkStatus(oneTimeWorkRequest)
+    }
 
+
+    private fun printWorkStatus(oneTimeWorkRequest: WorkRequest) {
         // listening the work status
         WorkManager.getInstance(this).getWorkInfoByIdLiveData(oneTimeWorkRequest.id)
             .observe(this, Observer {  workInfo ->
@@ -33,6 +37,5 @@ class MainActivity : AppCompatActivity() {
                     tvWorkStatus.append(workInfo.state.name + "\n");
                 }
             })
-
     }
 }
