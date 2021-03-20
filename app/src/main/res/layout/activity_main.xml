@@ -20,4 +20,16 @@
         android:padding="10dp"
         android:textColor="@color/white"/>
 
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvWorkStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintTop_toBottomOf="@+id/btnStartEnqueueWork"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
