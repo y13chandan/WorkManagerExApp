@@ -42,7 +42,10 @@ class MainActivity : AppCompatActivity() {
             .observe(this, Observer { workInfo ->
 
                 //Displaying the status
-                if (workInfo != null) {
+                if (workInfo != null && workInfo.state.isFinished) {
+                    //receiving back the data
+                    tvWorkStatus.append(workInfo.outputData.getString(SendNotificationWorker.TASK_DATA) + "\n");
+
                     tvWorkStatus.append(workInfo.state.name + "\n");
                 }
             })
