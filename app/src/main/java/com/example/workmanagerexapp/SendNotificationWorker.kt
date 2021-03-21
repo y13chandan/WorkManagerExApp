@@ -10,17 +10,25 @@ import androidx.work.WorkerParameters
 
 
 class SendNotificationWorker(context: Context, workParams: WorkerParameters) : Worker(
-    context,
-    workParams
+        context,
+        workParams
 ) {
 
+    companion object {
+        const val TASK_DATA = "task_data"
+    }
 
     /*
     * responsible for doing work so we put the work here that is need to be performed.
     * to display a notification i am calling displayNotification method
      */
     override fun doWork(): Result {
-        displayNotification("WorkManager", "Finished with work")
+        //getting the input data
+        val taskData = inputData.getString(TASK_DATA)
+
+        if (taskData != null) {
+            displayNotification("WorkManager", taskData)
+        }
         return Result.success()
     }
 
@@ -35,9 +43,9 @@ class SendNotificationWorker(context: Context, workParams: WorkerParameters) : W
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                "workmanagerexample",
-                "workmanagerexample",
-                NotificationManager.IMPORTANCE_DEFAULT
+                    "workmanagerexample",
+                    "workmanagerexample",
+                    NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(channel)
         }
