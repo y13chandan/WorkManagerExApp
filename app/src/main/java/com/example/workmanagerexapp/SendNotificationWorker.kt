@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
@@ -29,7 +30,13 @@ class SendNotificationWorker(context: Context, workParams: WorkerParameters) : W
         if (taskData != null) {
             displayNotification("WorkManager", taskData)
         }
-        return Result.success()
+
+        //setting output data
+        val data: Data = Data.Builder()
+                .putString(TASK_DATA, "The conclusion of the task")
+                .build()
+
+        return Result.success(data)
     }
 
 
