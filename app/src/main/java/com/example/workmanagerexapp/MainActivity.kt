@@ -1,10 +1,10 @@
 package com.example.workmanagerexapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,8 +14,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //creating a data object for passing the data with workRequest
+        //we can put as many variables needed
+        val data = Data.Builder()
+                .putString(SendNotificationWorker.TASK_DATA, "The task data passed to send notification worker")
+                .build()
+
+
         //subclass of our WorkRequest
-        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<SendNotificationWorker>().build()
+        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<SendNotificationWorker>()
+                .setInputData(data)
+                .build()
 
 
         btnStartEnqueueWork.setOnClickListener {
@@ -30,10 +39,10 @@ class MainActivity : AppCompatActivity() {
     private fun printWorkStatus(oneTimeWorkRequest: WorkRequest) {
         // listening the work status
         WorkManager.getInstance(this).getWorkInfoByIdLiveData(oneTimeWorkRequest.id)
-            .observe(this, Observer {  workInfo ->
+            .observe(this, Observer { workInfo ->
 
                 //Displaying the status
-                if (workInfo != null ) {
+                if (workInfo != null) {
                     tvWorkStatus.append(workInfo.state.name + "\n");
                 }
             })
